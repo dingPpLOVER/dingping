@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>查询天气</title>
+		<link rel="icon" type="image/x-icon" href="img/favicon2.ico"/>
+		
+		<script src="common/jquery/jquery-3.3.1.js" type="text/javascript"></script>
+		<script src="common/echarts/echarts.min.js" type="text/javascript"></script>
+		<script src="index.js" type="text/javascript"></script>
+		<script src="new_file.js"></script>
+		<link href="index.css" type="text/css" rel="stylesheet"/>
+		
+	</head>
+	<body>
+		<div class="boxdiv">
+			<div class="boxheader">
+				<div class="container">
+					<img src="img/logo.webp" id='logo'/>
+					<div class="toptenurl">
+						<a href="https://www.qq.com/" style="margin-right: 20px;">腾讯网首页</a>
+						<div class="area">
+							<p class="area_p">辽宁省 盘锦市</p>
+						</div>
+						<!-- <a href="javascript:;" style="display: inline-block;" class="addfollow">[添加关注]</a> -->
+						<div class="inputdiv">
+							<input type="text" id="search" placeholder="搜索市、区、县等"/>
+						</div>
+						<div class="inputtip"></div>
+					</div>
+				</div>	
+			</div>
+			<div class="boxcontentone">
+				<div class="container">
+					<p class="bcotime">中央气象台08:50发布</p>
+					<div class="real_tem">
+						<div class="tem_num">21°</div>
+						<div class="tem_name">晴</div>
+						<div class="tem_quality" data-attr="tem_quality">
+							<div class="tem_qualitytext">32 优</div>
+							<div class="air_table">
+								<!-- <div class="air_tabletip">空气指数41 优</div>
+								<div class="air_tabledetail">
+									<table class="air_tdinner" cellspacing="0">
+										<tr class="air_tr">
+											<td class="air_td">
+												<div class="air_p">8</div>
+												<div class="air_p">PM2.5</div>
+											</td>
+											<td class="air_td">
+												<p class="air_p">14</p>
+												<p class="air_p">PM10</p>
+											</td>
+											<td class="air_td">
+												<p class="air_p">5</p>
+												<p class="air_p">SO2</p>
+											</td>
+										</tr>
+										<tr class="air_tr">
+											<td class="air_td">
+												<p class="air_p">13</p>
+												<p class="air_p">NO2</p>
+											</td>
+											<td class="air_td">
+												<p class="air_p">96</p>
+												<p class="air_p">O3</p>
+											</td>
+											<td class="air_td">
+												<p class="air_p">1</p>
+												<p class="air_p">CO</p>
+											</td>
+										</tr>
+									</table>
+								</div> -->
+							</div>
+						</div>
+						<div class="warmming">
+							<!-- <div class="singwarm"></div> -->
+						</div>
+					</div>
+					<div class="real_temother">
+						<p class="other_item">
+							<i class="icon_pic" id="icon_wind"></i>
+							<span class="txt">东风 1级</span>
+						</p>
+						<p class="other_item">
+							<i class="icon_pic" id="icon_hum"></i>
+							<span class="txt">湿度 56%</span>
+						</p>
+						<p class="other_item">
+							<i class="icon_pic" id="k_pa"></i>
+							<span class="txt">气压 1004hPa</span>
+						</p>
+						
+					</div>
+					<div class="tips">
+						<p class="texttips">光芒透过云缝，洒向大地~</p>
+						<a href="javascript:;" id="tips_btn" style="display: inline-block;"></a>	
+					</div>
+					<div class="bigger_icon">
+						<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/currentweather/day/01.png"/>
+					</div>
+				</div>	
+			</div>
+			<div class="container" id="ct_hour">
+				<div class="hourtitle">逐小时预报</div>
+				<a href="http://www.weather.com.cn/" style="display: inline-block;" id="hoururl" target="_blank">数据来源于中国天气网</a>
+				<div class="hourarrow_icon">
+					<a href="javascript:;" id="hourarrow_left" style="display: inline-block;" class="icon"></a>
+					<a href="javascript:;" id="hourarrow_right" style="display: inline-block;" class="icon"></a>
+				</div>
+				<div class="hour_detailed">
+					<div class="hour_wea">
+						<div class="hour_time">03:00</div>
+						<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" class="icon"/>
+						<div class="hour_tem">17°</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="bc_co">
+					<a href="http://www.weather.com.cn/weather15d/101071301.shtml" class="icon" target="_blank">15日天气预报</a>
+					<div class="hourtitle">7日天气预报</div>
+					<div class="seven_detailed">
+						<ul style="list-style: none;">
+							<!-- <li class="sevenli">
+								<div class="sevenday">昨天</div>
+								<div class="sevendata">06月12日</div>
+								<div class="seven_amwea">
+									<div class="amweatext">多云</div>
+									<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/day/01.png" class="icon"/>
+								</div>
+								<div class="night">
+									<img src="https://mat1.gtimg.com/pingjs/ext2020/weather/pc/icon/weather/night/04.png" class="icon"/>
+									<div class="amweatext">雷阵雨</div>
+								</div>
+								<div class="sevenwind">北风4级</div>
+							</li> -->
+						</ul>
+						<div class="echarts">
+							<div id="main" style="height: 100%; width: 100%; margin: auto;" ></div>
+						</div>
+					</div>
+				</div>
+				<div class="bc_cor">
+					<div class="hourtitle">生活指数</div>
+					<div class="hourarrow_icon">
+						<a href="javascript:;" id="life_left" style="display: inline-block;" class="icon"></a>
+						<a href="javascript:;" id="life_right" style="display: inline-block;" class="icon"></a>
+					</div>
+					<div class="life_detailed">
+						<ul class="life_ul">
+							<!-- <li class="life_li">
+								<div class="life_icon">
+									<div class="life_pic"></div>
+									<div class="life_text">穿衣 舒适</div>
+								</div>
+								<div class="life_tips">
+									<div class="life_tipstext">建议着长袖T恤、衬衫加单裤等服装。年老体弱者宜着针织长袖衬衫、马甲和长裤</div>
+								</div>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="boxfooter">
+				<div class="footertop">
+					<a href="http://www.cma.gov.cn/" target="_blank">
+						<img src="img/icon1.png"/>
+					</a>
+					<a href="http://www.nmc.cn/" target="_blank">
+						<img src="img/icon2.png"/>
+					</a>
+					<a href="http://www.weather.com.cn/" target="_blank">
+						<img src="img/icon3.png"/>
+					</a>
+				</div>
+				<div class="footernav">
+					<div>
+						<a href="http://www.tencent.com/" target="_blank">关于腾讯</a> |
+						<a href="http://www.tencent.com/index_e.shtml" target="_blank">About Tencent</a> |
+						<a href="http://www.qq.com/contract.shtml" target="_blank">服务协议</a> |
+						<a href="http://www.qq.com/privacy.htm" target="_blank">隐私政策</a> |
+						<a href="http://open.qq.com/" target="_blank">开放平台</a> |
+						<a href="http://www.tencentmind.com/" target="_blank">广告服务</a> |
+						<a href="http://hr.tencent.com/" target="_blank">腾讯招聘</a> |
+						<a href="http://gongyi.qq.com/" target="_blank">腾讯公益</a> |
+						<a href="http://service.qq.com/" target="_blank">客服中心</a> |
+						<a href="http://news.qq.com/zt2014/2014qtnews/ccybspxd.htm" target="_blank">举报中心</a> |
+						<a href="http://www.qq.com/map/" target="_blank">网站导航</a>
+					</div>
+					<div class="copyrighttext">Copyright © 1998 - 2023 Tencent. All Rights Reserved</div>
+					<div>
+						<a href="http://www.tencent.com/" target="_blank">腾讯公司</a>
+						<a href="http://www.tencent.com/zh-cn/le/copyrightstatement.shtml" target="_blank">版权所有</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
